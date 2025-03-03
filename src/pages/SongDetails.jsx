@@ -168,12 +168,12 @@ const SongDetails = () => {
               className="transform -rotate-90 origin-center"
             />
           </svg>
-          <button
+          {/* <button
             onClick={togglePlayPause}
             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center rounded-full bg-teal-500 bg-opacity-90 hover:bg-opacity-100 text-white transition-all duration-300 shadow-md hover:shadow-lg"
           >
             {isPlaying ? <FaPause size={18} sm={{ size: 24 }} /> : <FaPlay size={18} sm={{ size: 24 }} />}
-          </button>
+          </button> */}
         </div>
 
         {/* Song Info */}

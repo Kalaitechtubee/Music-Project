@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
   const navigate = useNavigate();
   const [playlist, setPlaylist] = useState(JSON.parse(localStorage.getItem('playlist') || '[]'));
+  const [searchTerm, setSearchTerm] = useState(''); // Add search state
 
   const goToSongDetails = (songId) => {
     navigate(`/song/${songId}`);
@@ -22,6 +23,13 @@ const Home = () => {
     setPlaylist(updatedPlaylist);
   };
 
+  // Filter songs based on search term
+  const filteredSongs = songsData.filter(song =>
+    song.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    song.artist.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    song.movie.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-teal-900 to-gray-800 text-white">
       <div className="container mx-auto px-6 py-12">
@@ -33,11 +41,21 @@ const Home = () => {
           <p className="text-gray-300 mt-3 text-base md:text-lg font-medium">
             Curated Tamil masterpieces for your listening pleasure
           </p>
+          {/* Search Input */}
+          <div className="mt-6 max-w-md mx-auto">
+            <input
+              type="text"
+              placeholder="Search songs, artists, movies..."
+              className="w-full p-3 rounded-lg bg-gray-800 border border-teal-500/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all duration-300"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
         </div>
 
         {/* Songs Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-          {songsData.map((song) => {
+          {filteredSongs.map((song) => {
             const isInPlaylist = playlist.some((item) => item.id === song.id);
 
             return (
